@@ -1,0 +1,45 @@
+version: '3.2'
+services:
+  hass:
+    image: hass:v3
+    build:
+      context: ./hass
+    volumes:
+      - hass_config:/hasscfg
+    networks:
+      - hass_backend
+    ports: 
+      - 8080:8123
+  hass-db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: rootsecret
+    volumes:
+      - hass_db:/var/lib/mysql
+      - ./hass_db/init:/docker-entrypoint-initdb.d  
+    networks:
+      - hass_backend
+  mqtt-broker:
+    image: mosquitto:v1
+    build:
+      context: ./mqtt-broker
+    command: mosquitto -v -p 1883
+    networks:
+      - hass_backend
+      - hass_sensors
+  sensor:
+    image: mqtt-emu:v1
+    build:
+      context: ./mqtt
+    networks:
+      - hass_sensors
+
+networks:
+  hass_backend:
+    driver: overlay
+  hass_sensors:
+    driver: overlay
+
+volumes:
+  hass_db:
+  hass_config:

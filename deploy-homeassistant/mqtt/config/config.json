@@ -1,0 +1,18 @@
+{
+           "protocol": {
+                "mqtt":{
+                    "serverAddress": "mqtt-broker",
+                    "port": 1883,
+                    "topic": "/home/livingroom/sensor"
+                }
+            },
+            "device":{
+                "frequency": 1000,
+                "duration": 3600000,
+                "accelerate": 1,
+                "sensors": [
+                    {"name": "temperature", "value": "NORMAL(23,3)"},
+                    {"name": "humidity", "value": "UNIFORM(40, 80)"}
+                ]
+            }
+        }   

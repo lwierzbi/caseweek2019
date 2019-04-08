@@ -1,0 +1,3 @@
+[submodule "deploy-homeassistant/mqtt/mqtt-emulator"]
+	path = deploy-homeassistant/mqtt/mqtt-emulator
+	url = https://github.com/dojot/mqtt-emulator.git
